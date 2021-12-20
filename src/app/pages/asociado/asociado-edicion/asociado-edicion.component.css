@@ -1,0 +1,42 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-container>* {
+    width: 100%;
+}
+
+.invalido {
+    color: red;
+}
+
+
+.asociado-full-width {
+  width: 100%;
+}
+
+.asociado-70-width {
+  width: 70%;
+}
+
+.asociado-40-width {
+  width: 40%;
+}
+
+.asociado-20-width {
+  width: 20%;
+}
+
+.asociado-10-width {
+  width: 10%;
+}
+
+.asociado-15-width {
+  width: 15%;
+}
+
+.botones_abajo {
+  margin-top: 5px;
+  text-align: right;
+}

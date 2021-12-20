@@ -1,0 +1,169 @@
+<div class="card flex flex-row justify-content-center p-3">
+    <h1>Registrar Asociado</h1>
+</div>
+<div class="container"
+     fxLayout="row"
+     fxLayout.xs="column"
+     fxLayoutWrap
+     fxLayoutGap="0.5%">
+    <mat-form-field>
+        <mat-select placeholder="Tipo de documento"
+                    [(ngModel)]="idTipoDocumentoSeleccionado">
+            <mat-option *ngFor="let e of (tipoDocumento$ | async)"
+                        [value]="e.idTipoDocumento">
+                {{e.descripcion}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input type="number"
+               matInput
+               name="numeroDocumento"
+               placeholder="Número de documento"
+               [(ngModel)]="asociado.numeroDocumento"
+               #numeroDocumento="ngModel"
+               max="15"
+               maxlength="15"
+               required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               [matDatepicker]="picker"
+               placeholder="Fecha de nacimiento (dd/mm/yyyy)"
+               [(ngModel)]="fechaNacimientoSeleccionada"
+               [max]="maxFechaNacimiento"
+               #fechaNacimiento="ngModel"
+               required>
+        <mat-datepicker-toggle matSuffix
+                               [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</div>
+<div class="container"
+     fxLayout="row"
+     fxLayout.xs="column"
+     fxLayoutWrap
+     fxLayoutGap="0.5%">
+    <mat-form-field>
+        <input matInput
+               placeholder="Nombres"
+               [(ngModel)]="asociado.nombres"
+               max="30"
+               maxlength="30 "
+               #nombres="ngModel"
+               required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               placeholder="Primer apellido"
+               [(ngModel)]="asociado.primerApellido"
+               max="30"
+               maxlength="30"
+               #primerApellido="ngModel"
+               required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               placeholder="Segundo apellido"
+               [(ngModel)]="asociado.segundoApellido"
+               max="30"
+               maxlength="30">
+    </mat-form-field>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="card flex flex-row justify-content-center p-3">
+    <h4>Beneficiarios</h4>
+</div>
+<div class="container"
+     fxLayout="row"
+     fxLayout.xs="column"
+     fxLayoutWrap
+     fxLayoutGap="0.5%">
+    <mat-form-field class="asociado-30-width">
+        <input matInput
+               placeholder="Nombres"
+               [(ngModel)]="beneficiarioNombres"
+               required>
+    </mat-form-field>
+    <mat-form-field class="asociado-20-width">
+        <input matInput
+               placeholder="Primer apellido"
+               [(ngModel)]="beneficiarioPrimerApellido"
+               required>
+    </mat-form-field>
+    <mat-form-field class="asociado-20-width">
+        <input matInput
+               placeholder="Segundo apellido"
+               [(ngModel)]="beneficiarioSegundoApellido">
+    </mat-form-field>
+    <mat-form-field class="asociado-20-width">
+        <input matInput
+               type="number"
+               maxlength="3"
+               max="100"
+               placeholder="porcentaje"
+               [(ngModel)]="beneficiarioPorcentaje"
+               required>
+    </mat-form-field>
+    <button mat-button
+            color="primary"
+            (click)="agregarBeneficiario()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+<table mat-table
+       [dataSource]="dataSource"
+       matSort
+       class="mat-elevation-z8">
+
+    <ng-container matColumnDef="nombre">
+        <th mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            class="asociado-70-width"> Nombres </th>
+        <td mat-cell
+            *matCellDef="let element">
+            {{element.nombreCompleto }}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="porcentaje">
+        <th mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            class="asociado-20-width"> Porcentaje </th>
+        <td mat-cell
+            *matCellDef="let element">
+            {{element.porcentaje }}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+        <th mat-header-cell
+            *matHeaderCellDef
+            class="asociado-10-width"></th>
+        <td mat-cell
+            *matCellDef="let row">
+            <button mat-button
+                    color="primary"
+                    (click)="eliminarBeneficiario(row)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row
+        *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row
+        *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+<div class="botones_abajo">
+    <button mat-raised-button
+            color="primary"
+            (click)="guardar()">Aceptar</button>
+    <button mat-raised-button
+            color="accent"
+            (click)="cerrar()">Cancelar</button>
+</div>
