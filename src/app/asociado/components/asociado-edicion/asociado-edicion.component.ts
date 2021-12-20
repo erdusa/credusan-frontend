@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, switchMap } from 'rxjs';
-import { Asociado } from 'src/app/models/asociado';
-import { TipoDocumento } from 'src/app/models/tipoDocumento';
-import { AsociadoService } from 'src/app/services/asociado.service';
-import { TipoDocumentoService } from 'src/app/services/tipo-documento.service';
+import { Asociado } from '../../models/asociado';
+import { TipoDocumento } from '../../models/tipoDocumento';
+import { AsociadoService } from '../../services/asociado.service';
+import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import * as moment from 'moment'
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Beneficiario } from 'src/app/models/beneficiario';
+import { Beneficiario } from '../../models/beneficiario';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({

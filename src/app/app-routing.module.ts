@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './pages/layout/layout.component';
+import { AsociadoEdicionComponent } from './asociado/components/asociado-edicion/asociado-edicion.component';
+import { AsociadoComponent } from './asociado/components/asociado.component';
+import { CaptacionComponent } from './captacion/components/captacion.component';
 
 const routes: Routes = [
-  {path: "", pathMatch: "full", redirectTo: "pages" },
-  {
-    path: "pages",
-    component: LayoutComponent,
-    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
-  }
+    {
+        path: "captacion", component: CaptacionComponent
+    },
+    {
+        path: "asociado", component: AsociadoComponent, children: [
+            { path: "edicion/:id", component: AsociadoEdicionComponent },
+            { path: "nuevo", component: AsociadoEdicionComponent }
+        ]
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

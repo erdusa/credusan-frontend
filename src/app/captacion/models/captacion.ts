@@ -1,5 +1,5 @@
-import { Asociado } from "./asociado";
-import { TipoCaptacion } from "./TipoCaptacion";
+import { Asociado } from "src/app/asociado/models/asociado";
+import { TipoCaptacion } from "./tipoCaptacion";
 import { TipoEstadoCaptacion } from "./tipoEstadoCaptacion";
 
 export class Captacion {

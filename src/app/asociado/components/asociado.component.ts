@@ -4,8 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Asociado } from 'src/app/models/asociado';
-import { AsociadoService } from 'src/app/services/asociado.service';
+import { Asociado } from '../models/asociado';
+import { AsociadoService } from '../services/asociado.service';
 import { AsociadoEdicionComponent } from './asociado-edicion/asociado-edicion.component';
 
 @Component({

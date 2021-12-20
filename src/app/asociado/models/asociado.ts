@@ -1,5 +1,4 @@
 import { Beneficiario } from "./beneficiario";
-import { Captacion } from "./captacion";
 import { TipoDocumento } from "./tipoDocumento";
 
 export class Asociado {

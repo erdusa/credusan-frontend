@@ -4,18 +4,18 @@ import { environment } from 'src/environments/environment';
 import { TipoDocumento } from '../models/tipoDocumento';
 
 @Injectable({
-  providedIn: 'any'
+    providedIn: 'root'
 })
 export class TipoDocumentoService {
 
-  private url: string = `${environment.HOST}/tiposdocumento`;
+    private url: string = `${environment.HOST}/tiposdocumento`;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+    constructor(
+        private http: HttpClient
+    ) { }
 
-  public listar() {
-    return this.http.get<TipoDocumento[]>(this.url);    
-  }
+    public listar() {
+        return this.http.get<TipoDocumento[]>(this.url);
+    }
 
 }
