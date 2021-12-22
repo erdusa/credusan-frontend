@@ -12,6 +12,7 @@ export class AsociadoService {
     private url: string = `${environment.HOST}/asociados`;
     private asociadoCambio: Subject<Asociado[]> = new Subject<Asociado[]>();
     private mensajeCambio: Subject<string> = new Subject<string>();
+    private asociadoSelect: Subject<Asociado> = new Subject<Asociado>();
 
     constructor(
         private http: HttpClient
@@ -47,5 +48,13 @@ export class AsociadoService {
 
     setMensajeCambio(msj: string) {
         this.mensajeCambio.next(msj);
+    }
+
+    getAsociadoSelect() {
+        return this.asociadoSelect.asObservable();
+    }
+
+    setAsociadoSelect(asociado: Asociado) {
+        this.asociadoSelect.next(asociado);
     }
 }

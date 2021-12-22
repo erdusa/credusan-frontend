@@ -24,7 +24,6 @@ export class AsociadoBuscarComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     readonly CANTIDAD_RESGISTROS_POR_PAGINA: number = 10;
     filtroPorNombres: string = "";
-    asociadoSelect: Asociado;
 
     constructor(
         private asociadoService: AsociadoService,
@@ -85,7 +84,7 @@ export class AsociadoBuscarComponent implements OnInit {
 
     public seleccionarAsociado(asociado: Asociado) {
         this.selection.toggle(asociado)
-        this.asociadoSelect = asociado;
+        this.asociadoService.setAsociadoSelect(asociado);
     }
 
 }
