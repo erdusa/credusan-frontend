@@ -19,7 +19,7 @@ export class AsociadoService {
     ) { }
 
     public listar(p: number, s: number) {
-        return this.http.get<any>(`${this.url}?page=${p}&size=${s}`);
+        return this.http.get<any>(`${this.url}?page=${p}&size=${s}&sort=nombres&sort=primerApellido&sort=segundoApellido`);
     }
 
     public listarPorNombres(nombres: string) {
@@ -32,14 +32,6 @@ export class AsociadoService {
 
     public modificar(asociado: Asociado) {
         return this.http.put(this.url, asociado);
-    }
-
-    public getAsociadoCambio() {
-        return this.asociadoCambio.asObservable();
-    }
-
-    public setAsociadoCambio(lista: Asociado[]) {
-        this.asociadoCambio.next(lista);
     }
 
     getMensajeCambio() {

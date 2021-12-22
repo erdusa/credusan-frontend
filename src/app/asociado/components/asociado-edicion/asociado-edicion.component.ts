@@ -126,10 +126,7 @@ export class AsociadoEdicionComponent implements OnInit {
                 this.asociadoGuardado = this.asociadoService.agregar(this.asociado)
             }
 
-            this.asociadoGuardado.pipe(switchMap(() => {
-                return this.asociadoService.listar(0, this.CANTIDAD_RESGISTROS_POR_PAGINA);
-            })).subscribe(data => {
-                this.asociadoService.setAsociadoCambio(data.content);
+            this.asociadoGuardado.subscribe(data => {
                 this.asociadoService.setMensajeCambio("Se registró");
             });
 

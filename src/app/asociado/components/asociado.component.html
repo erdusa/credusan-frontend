@@ -1,16 +1,23 @@
+<h1>Gestionar Asociados</h1>
+
 <app-asociado-buscar></app-asociado-buscar>
 
 <div style="text-align: center;">
-    <button mat-raised-button
-            color="accent"
-            [disabled]="disableEdit"
-            (click)="editarAsociado()">
-        <mat-icon>edit</mat-icon>
-    </button>
 
     <button mat-raised-button
             color="primary"
-            (click)="agregarAsociado()">
+            (click)="agregarAsociado()"
+            class="action_button">
         <mat-icon>add</mat-icon>
+        Agregar
+    </button>
+
+    <button mat-raised-button
+            color="accent"
+            [disabled]="disableEdit"
+            (click)="editarAsociado()"
+            class="action_button">
+        <mat-icon>edit</mat-icon>
+        Modificar
     </button>
 </div>

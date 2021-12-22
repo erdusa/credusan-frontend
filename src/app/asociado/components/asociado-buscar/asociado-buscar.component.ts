@@ -1,5 +1,4 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,29 +30,19 @@ export class AsociadoBuscarComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.listarAsociados();
 
-        this.asociadoService.getAsociadoCambio().subscribe(data => {
-            this.dataSource = new MatTableDataSource(data);
+        this.asociadoService.getMensajeCambio().subscribe(data => {
+            this.listarAsociados();
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
         });
 
-
-        this.listarPaginable(0, this.CANTIDAD_RESGISTROS_POR_PAGINA);
     }
 
-    public filtrar(e: any) {
-
-        //this.filtroPorNombres = e.target.value;
-
-        if (e.code != "Enter" && this.filtroPorNombres != "") {
-            return;
-        }
+    public listarAsociados() {
 
         if (this.filtroPorNombres.length > 0 && this.filtroPorNombres.length < 5) {
-            this.snackBar.open("Ingrese al menos 5 caracteres", 'AVISO', {
-                duration: 2000
-            });
             return;
         }
 
@@ -62,10 +51,6 @@ export class AsociadoBuscarComponent implements OnInit {
         } else {
             this.listarPaginable(0, this.CANTIDAD_RESGISTROS_POR_PAGINA);
         }
-    }
-
-    public mostrarMas(e: any) {
-        this.listarPaginable(e.pageIndex, e.pageSize);
     }
 
     private listarPaginable(pageIndex: number, pageSize: number) {
@@ -80,6 +65,10 @@ export class AsociadoBuscarComponent implements OnInit {
             this.cantidad = data.totalElements;
             this.dataSource = new MatTableDataSource(data);
         });
+    }
+
+    public mostrarMas(e: any) {
+        this.listarPaginable(e.pageIndex, e.pageSize);
     }
 
     public seleccionarAsociado(asociado: Asociado) {

@@ -2,8 +2,8 @@
     <mat-form-field>
         <input matInput
                [(ngModel)]="filtroPorNombres"
-               (keyup)="filtrar($event)"
-               placeholder="Buscar asociado">
+               (keyup)="listarAsociados()"
+               placeholder="Buscar asociado (al menos 5 caracteres)">
     </mat-form-field>
 </div>
 
