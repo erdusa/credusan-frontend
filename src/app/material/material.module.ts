@@ -21,35 +21,36 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
 
-  ],
-  exports: [
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatExpansionModule,
-    FlexLayoutModule
-  ],
-  providers: [
-    { provide: MatPaginatorIntl, useClass: MatPaginatorImpl },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-    { provide: DateAdapter, useClass: CustomDateAdapter }
-  ]
+@NgModule({
+    declarations: [],
+    imports: [
+        CommonModule,
+
+    ],
+    exports: [
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule,
+        MatSidenavModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatExpansionModule,
+        FlexLayoutModule
+    ],
+    providers: [
+        { provide: MatPaginatorIntl, useClass: MatPaginatorImpl },
+        { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+        { provide: DateAdapter, useClass: CustomDateAdapter }
+    ]
 })
 export class MaterialModule { }

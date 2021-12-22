@@ -10,13 +10,15 @@ import { MaterialModule } from './material/material.module';
 import { CaptacionComponent } from './captacion/components/captacion.component';
 import { AsociadoComponent } from './asociado/components/asociado.component';
 import { AsociadoEdicionComponent } from './asociado/components/asociado-edicion/asociado-edicion.component';
+import { AsociadoBuscarComponent } from './asociado/components/asociado-buscar/asociado-buscar.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         CaptacionComponent,
         AsociadoComponent,
-        AsociadoEdicionComponent
+        AsociadoEdicionComponent,
+        AsociadoBuscarComponent
     ],
     imports: [
         BrowserModule,
