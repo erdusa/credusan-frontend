@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { Asociado } from '../models/asociado';
 import { AsociadoService } from '../services/asociado.service';
 import { AsociadoBuscarComponent } from './asociado-buscar/asociado-buscar.component';
@@ -21,7 +22,8 @@ export class AsociadoComponent implements OnInit {
     constructor(
         private asociadoService: AsociadoService,
         private dialog: MatDialog,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private dialogUtils: DialogUtils
     ) { }
 
     ngOnInit(): void {
@@ -59,9 +61,11 @@ export class AsociadoComponent implements OnInit {
     }
 
     public retirarAsociado() {
-        this.asociadoService.retirarAsociado(this.asociadoSelect.idAsociado).subscribe(data => {
-            this.asociadoService.setMensajeCambio("Asociado retirado");
-        });
+        this.dialogUtils.confirmarProceso("¿Está seguro de que desea retirar al asociado?", (): void => {
+            this.asociadoService.retirarAsociado(this.asociadoSelect.idAsociado).subscribe(data => {
+                this.asociadoService.setMensajeCambio("Asociado retirado");
+            });
+        })
     }
 
     private reinicializarVariables() {

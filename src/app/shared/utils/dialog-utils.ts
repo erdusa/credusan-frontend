@@ -27,12 +27,4 @@ export class DialogUtils {
             });
     }
 
-    public showMessage(mensaje: string) {
-        if (mensaje != "") {
-            this.snackBar.open(mensaje, 'ATENCIÓN', {
-                duration: 2000
-            });
-        }
-    }
-
 }

@@ -10,6 +10,7 @@ import { Beneficiario } from '../../models/beneficiario';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { ValidateUtils } from 'src/app/shared/utils/validate-utils';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-asociado-edicion',
@@ -39,6 +40,7 @@ export class AsociadoEdicionComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) private data: Asociado,
         private asociadoService: AsociadoService,
         private tipoDocumentoService: TipoDocumentoService,
+        private snackBar: MatSnackBar,
         private dialogUtils: DialogUtils,
         private validateUtils: ValidateUtils
     ) { }
@@ -94,7 +96,9 @@ export class AsociadoEdicionComponent implements OnInit {
             }
         }
 
-        this.dialogUtils.showMessage(mensaje);
+        this.snackBar.open(mensaje, "AVISO", {
+            duration: 2000
+        });
 
         return datosOk;
     }
@@ -161,7 +165,9 @@ export class AsociadoEdicionComponent implements OnInit {
             datosOk = true;
         }
 
-        this.dialogUtils.showMessage(mensaje);
+        this.snackBar.open(mensaje, "AVISO", {
+            duration: 2000
+        });
 
         return datosOk;
     }
