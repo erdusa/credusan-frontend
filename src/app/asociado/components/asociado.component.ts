@@ -61,7 +61,7 @@ export class AsociadoComponent implements OnInit {
     }
 
     public retirarAsociado() {
-        this.dialogUtils.confirmarProceso("¿Está seguro de que desea retirar al asociado?", (): void => {
+        this.dialogUtils.confirmarProceso((): void => {
             this.asociadoService.retirarAsociado(this.asociadoSelect.idAsociado).subscribe(data => {
                 this.asociadoService.setMensajeCambio("Asociado retirado");
             });

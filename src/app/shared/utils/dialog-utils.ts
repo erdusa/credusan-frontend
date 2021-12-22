@@ -13,7 +13,10 @@ export class DialogUtils {
         private dialogo: MatDialog
     ) { }
 
-    public confirmarProceso(mensaje: string, funcion: any) {
+    public confirmarProceso(funcion: any, mensaje?: string) {
+        if (!(typeof mensaje != 'undefined' && mensaje)) {
+            mensaje = "¿Está seguro que desea realizar el proceso?"
+        }
         this.dialogo
             .open(DialogConfirmComponent, {
                 data: mensaje

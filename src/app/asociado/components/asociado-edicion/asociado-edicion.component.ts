@@ -128,7 +128,7 @@ export class AsociadoEdicionComponent implements OnInit {
         if (this.validarDatosAsociado()) {
             this.asociado.beneficiarios = this.beneficiarios;
 
-            this.dialogUtils.confirmarProceso('¿Está seguro de realizar el proceso?', (): void => {
+            this.dialogUtils.confirmarProceso((): void => {
                 if (this.asociado.idAsociado > 0) {
                     this.asociadoGuardado = this.asociadoService.modificar(this.asociado)
                 } else {
