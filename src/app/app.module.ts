@@ -11,6 +11,7 @@ import { CaptacionComponent } from './captacion/components/captacion.component';
 import { AsociadoComponent } from './asociado/components/asociado.component';
 import { AsociadoEdicionComponent } from './asociado/components/asociado-edicion/asociado-edicion.component';
 import { AsociadoBuscarComponent } from './asociado/components/asociado-buscar/asociado-buscar.component';
+import { DialogConfirmComponent } from './shared/dialog-confirm/dialog-confirm.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { AsociadoBuscarComponent } from './asociado/components/asociado-buscar/a
         CaptacionComponent,
         AsociadoComponent,
         AsociadoEdicionComponent,
-        AsociadoBuscarComponent
+        AsociadoBuscarComponent,
+        DialogConfirmComponent
     ],
     imports: [
         BrowserModule,

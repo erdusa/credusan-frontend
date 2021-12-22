@@ -1,14 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, switchMap } from 'rxjs';
 import { Asociado } from '../../models/asociado';
 import { TipoDocumento } from '../../models/tipoDocumento';
 import { AsociadoService } from '../../services/asociado.service';
 import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import * as moment from 'moment'
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Beneficiario } from '../../models/beneficiario';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
+import { ValidateUtils } from 'src/app/shared/utils/validate-utils';
 
 @Component({
     selector: 'app-asociado-edicion',
@@ -38,7 +39,8 @@ export class AsociadoEdicionComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) private data: Asociado,
         private asociadoService: AsociadoService,
         private tipoDocumentoService: TipoDocumentoService,
-        private snackBar: MatSnackBar
+        private dialogUtils: DialogUtils,
+        private validateUtils: ValidateUtils
     ) { }
 
     ngOnInit(): void {
@@ -49,8 +51,9 @@ export class AsociadoEdicionComponent implements OnInit {
         this.cargarGridBeneficiarios();
     }
 
+
     private cargarGridBeneficiarios() {
-        if (!this.isEmptyOrNull(this.asociado.beneficiarios)) {
+        if (!this.validateUtils.isEmptyOrNull(this.asociado.beneficiarios)) {
             this.beneficiarios = this.asociado.beneficiarios;
         }
         this.dataSource = new MatTableDataSource(this.beneficiarios);
@@ -62,7 +65,9 @@ export class AsociadoEdicionComponent implements OnInit {
             beneficiario.nombres = this.beneficiarioNombres;
             beneficiario.primerApellido = this.beneficiarioPrimerApellido;
             beneficiario.segundoApellido = this.beneficiarioSegundoApellido;
-            beneficiario.nombreCompleto = (beneficiario.nombres + " " + beneficiario.primerApellido + " " + (this.isEmptyOrNull(beneficiario.segundoApellido) ? "" : beneficiario.segundoApellido)).trim().toUpperCase();
+            beneficiario.nombreCompleto = (beneficiario.nombres + " "
+                + beneficiario.primerApellido
+                + " " + (this.validateUtils.isEmptyOrNull(beneficiario.segundoApellido) ? "" : beneficiario.segundoApellido)).trim().toUpperCase();
             beneficiario.porcentaje = this.beneficiarioPorcentaje;
             this.beneficiarios.push(beneficiario)
             this.cargarGridBeneficiarios();
@@ -74,13 +79,11 @@ export class AsociadoEdicionComponent implements OnInit {
         let datosOk = false;
         let mensaje = "";
 
-
-
-        if (this.isEmptyOrNull(this.beneficiarioNombres)) {
+        if (this.validateUtils.isEmptyOrNull(this.beneficiarioNombres)) {
             mensaje = "Debe ingresar el(los) nombre(s)"
-        } else if (this.isEmptyOrNull(this.beneficiarioPrimerApellido)) {
+        } else if (this.validateUtils.isEmptyOrNull(this.beneficiarioPrimerApellido)) {
             mensaje = "Debe ingresar el primer apellido"
-        } else if (this.isEmptyOrNull(this.beneficiarioPorcentaje)) {
+        } else if (this.validateUtils.isEmptyOrNull(this.beneficiarioPorcentaje)) {
             mensaje = "Debe ingresar el porcentaje"
         } else {
             const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0) + this.beneficiarioPorcentaje;
@@ -91,7 +94,7 @@ export class AsociadoEdicionComponent implements OnInit {
             }
         }
 
-        this.showMessage(mensaje);
+        this.dialogUtils.showMessage(mensaje);
 
         return datosOk;
     }
@@ -120,17 +123,21 @@ export class AsociadoEdicionComponent implements OnInit {
 
         if (this.validarDatosAsociado()) {
             this.asociado.beneficiarios = this.beneficiarios;
-            if (this.asociado.idAsociado > 0) {
-                this.asociadoGuardado = this.asociadoService.modificar(this.asociado)
-            } else {
-                this.asociadoGuardado = this.asociadoService.agregar(this.asociado)
-            }
 
-            this.asociadoGuardado.subscribe(data => {
-                this.asociadoService.setMensajeCambio("Se registró");
-            });
+            this.dialogUtils.confirmarProceso('¿Está seguro de realizar el proceso?', (): void => {
+                if (this.asociado.idAsociado > 0) {
+                    this.asociadoGuardado = this.asociadoService.modificar(this.asociado)
+                } else {
+                    this.asociadoGuardado = this.asociadoService.agregar(this.asociado)
+                }
 
-            this.cerrar();
+                this.asociadoGuardado.subscribe(data => {
+                    this.asociadoService.setMensajeCambio("Se registró");
+                });
+
+                this.cerrar();
+            })
+
         }
     }
 
@@ -140,13 +147,13 @@ export class AsociadoEdicionComponent implements OnInit {
         let hayBeneficiarios = this.beneficiarios.length > 0;
         const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0);
 
-        if (this.isEmptyOrNull(this.asociado.numeroDocumento)) {
+        if (this.validateUtils.isEmptyOrNull(this.asociado.numeroDocumento)) {
             mensaje = "Debe ingresar el número de documento"
-        } else if (this.isEmptyOrNull(this.asociado.nombres)) {
+        } else if (this.validateUtils.isEmptyOrNull(this.asociado.nombres)) {
             mensaje = "Debe ingresar el(los) nombre(s)"
-        } else if (this.isEmptyOrNull(this.asociado.primerApellido)) {
+        } else if (this.validateUtils.isEmptyOrNull(this.asociado.primerApellido)) {
             mensaje = "Debe ingresar el primer apellido"
-        } else if (this.isEmptyOrNull(this.asociado.fechaNacimiento)) {
+        } else if (this.validateUtils.isEmptyOrNull(this.asociado.fechaNacimiento)) {
             mensaje = "Debe ingresar la fecha de nacimiento"
         } else if (hayBeneficiarios && totalPorcentaje != 100) {
             mensaje = "El porcentaje para los beneficiarios debe sumar 100"
@@ -154,25 +161,18 @@ export class AsociadoEdicionComponent implements OnInit {
             datosOk = true;
         }
 
-        this.showMessage(mensaje);
+        this.dialogUtils.showMessage(mensaje);
 
         return datosOk;
-    }
-
-    private isEmptyOrNull(dato: any) {
-        return !(typeof dato != 'undefined' && dato) || dato == 'Invalid date';
-    }
-
-    private showMessage(mensaje: string) {
-        if (mensaje != "") {
-            this.snackBar.open(mensaje, 'ATENCIÓN', {
-                duration: 2000
-            });
-        }
     }
 
     public cerrar() {
         this.dialogRef.close();
     }
 
+
+
 }
+
+
+

@@ -10,5 +10,7 @@ export class Asociado {
     segundoApellido: string;
     nombreCompleto: string;
     fechaNacimiento: string;
+    activo: boolean;
     beneficiarios: Beneficiario[];
+
 }

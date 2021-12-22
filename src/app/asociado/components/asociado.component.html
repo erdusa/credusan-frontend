@@ -13,11 +13,27 @@
     </button>
 
     <button mat-raised-button
-            color="accent"
-            [disabled]="disableEdit"
+            color="primary"
+            [disabled]="!asociadoEdit"
             (click)="editarAsociado()"
             class="action_button">
         <mat-icon>edit</mat-icon>
         Modificar
+    </button>
+    <button mat-raised-button
+            color="accent"
+            [disabled]="(!asociadoEdit || asociadoActivo)"
+            (click)="vincularAsociado()"
+            class="action_button">
+        <mat-icon>check</mat-icon>
+        Vincular
+    </button>
+    <button mat-raised-button
+            color="accent"
+            [disabled]="(!asociadoEdit || !asociadoActivo)"
+            (click)="retirarAsociado()"
+            class="action_button">
+        <mat-icon>close</mat-icon>
+        Retirar
     </button>
 </div>

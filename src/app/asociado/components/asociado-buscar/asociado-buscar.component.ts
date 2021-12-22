@@ -16,7 +16,7 @@ import { AsociadoService } from '../../services/asociado.service';
 export class AsociadoBuscarComponent implements OnInit {
 
     dataSource: MatTableDataSource<Asociado>;
-    displayedColumns: string[] = ['abreviaturaDocumento', 'numeroDocumento', 'nombres'];
+    displayedColumns: string[] = ['abreviaturaDocumento', 'numeroDocumento', 'nombres', 'activo'];
     selection = new SelectionModel<Asociado>(false, []);
     cantidad: number;
     @ViewChild(MatPaginator) paginator: MatPaginator;

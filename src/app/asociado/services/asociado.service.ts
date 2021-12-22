@@ -34,6 +34,10 @@ export class AsociadoService {
         return this.http.put(this.url, asociado);
     }
 
+    public retirarAsociado(idAsociado: number) {
+        return this.http.put(`${this.url}/retirar/${idAsociado}`, null);
+    }
+
     getMensajeCambio() {
         return this.mensajeCambio.asObservable();
     }

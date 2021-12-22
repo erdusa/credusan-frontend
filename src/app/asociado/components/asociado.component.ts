@@ -1,9 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Asociado } from '../models/asociado';
 import { AsociadoService } from '../services/asociado.service';
 import { AsociadoBuscarComponent } from './asociado-buscar/asociado-buscar.component';
@@ -18,7 +15,8 @@ export class AsociadoComponent implements OnInit {
 
     @ViewChild(AsociadoBuscarComponent) AsociadoBuscar;
     asociadoSelect: Asociado;
-    disableEdit: boolean = true;
+    asociadoEdit: boolean = false;
+    asociadoActivo: boolean = false;
 
     constructor(
         private asociadoService: AsociadoService,
@@ -36,7 +34,8 @@ export class AsociadoComponent implements OnInit {
 
         this.asociadoService.getAsociadoSelect().subscribe(data => {
             this.asociadoSelect = data;
-            this.disableEdit = false;
+            this.asociadoEdit = true;
+            this.asociadoActivo = data.activo;
         });
     }
 
@@ -44,7 +43,7 @@ export class AsociadoComponent implements OnInit {
         this.dialog.open(AsociadoEdicionComponent, {
             width: '50%'
         });
-        this.disableEdit = true;
+        this.reinicializarVariables();
     }
 
     public editarAsociado() {
@@ -52,7 +51,22 @@ export class AsociadoComponent implements OnInit {
             width: '50%',
             data: this.asociadoSelect
         });
-        this.disableEdit = true;
+        this.reinicializarVariables();
+    }
+
+    public vincularAsociado() {
+
+    }
+
+    public retirarAsociado() {
+        this.asociadoService.retirarAsociado(this.asociadoSelect.idAsociado).subscribe(data => {
+            this.asociadoService.setMensajeCambio("Asociado retirado");
+        });
+    }
+
+    private reinicializarVariables() {
+        this.asociadoEdit = false;
+        this.asociadoActivo = false;
     }
 
 }
