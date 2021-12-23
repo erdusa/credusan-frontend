@@ -9,8 +9,7 @@ import * as moment from 'moment'
 import { Beneficiario } from '../../models/beneficiario';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
-import { ValidateUtils } from 'src/app/shared/utils/validate-utils';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ValidateFields } from 'src/app/shared/utils/validate-fields';
 
 @Component({
     selector: 'app-asociado-edicion',
@@ -40,67 +39,59 @@ export class AsociadoEdicionComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) private data: Asociado,
         private asociadoService: AsociadoService,
         private tipoDocumentoService: TipoDocumentoService,
-        private snackBar: MatSnackBar,
         private dialogUtils: DialogUtils,
-        private validateUtils: ValidateUtils
+        private validateFields: ValidateFields
     ) { }
 
     ngOnInit(): void {
         this.asociado = { ...this.data };
+        console.log(this.data);
+
         this.tipoDocumento$ = this.tipoDocumentoService.listar();
         this.idTipoDocumentoSeleccionado = this.asociado.tipoDocumento != null ? this.asociado.tipoDocumento.idTipoDocumento : 3;
         this.fechaNacimientoSeleccionada = moment(this.asociado.fechaNacimiento, 'YYYY-MM-DD').toDate();
-        this.cargarGridBeneficiarios();
+        if (!this.validateFields.isEmptyOrNull(this.asociado.beneficiarios)) {
+            this.asociado.beneficiarios.forEach(b => this.beneficiarios.push(b));
+            this.cargarTablaBeneficiarios()
+        }
     }
 
-
-    private cargarGridBeneficiarios() {
-        if (!this.validateUtils.isEmptyOrNull(this.asociado.beneficiarios)) {
-            this.beneficiarios = this.asociado.beneficiarios;
-        }
+    private cargarTablaBeneficiarios() {
         this.dataSource = new MatTableDataSource(this.beneficiarios);
     }
 
     public agregarBeneficiario() { //falta trabajar con beneficiarios
-        if (this.validarDatosBeneficiario()) {
-            let beneficiario = new Beneficiario;
-            beneficiario.nombres = this.beneficiarioNombres;
-            beneficiario.primerApellido = this.beneficiarioPrimerApellido;
-            beneficiario.segundoApellido = this.beneficiarioSegundoApellido;
-            beneficiario.nombreCompleto = (beneficiario.nombres + " "
-                + beneficiario.primerApellido
-                + " " + (this.validateUtils.isEmptyOrNull(beneficiario.segundoApellido) ? "" : beneficiario.segundoApellido)).trim().toUpperCase();
-            beneficiario.porcentaje = this.beneficiarioPorcentaje;
-            this.beneficiarios.push(beneficiario)
-            this.cargarGridBeneficiarios();
-            this.limpiarCamposBeneficiario();
+        if (this.isDatosBeneficiariosFailed()) {
+            return;
         }
+        let beneficiario = new Beneficiario;
+        beneficiario.nombres = this.beneficiarioNombres;
+        beneficiario.primerApellido = this.beneficiarioPrimerApellido;
+        beneficiario.segundoApellido = this.beneficiarioSegundoApellido;
+        beneficiario.nombreCompleto = (beneficiario.nombres + " "
+            + beneficiario.primerApellido
+            + " " + this.validateFields.returnEmptyForNull(beneficiario.segundoApellido)
+        ).trim().toUpperCase();
+        beneficiario.porcentaje = this.beneficiarioPorcentaje;
+        this.beneficiarios.push(beneficiario)
+        this.cargarTablaBeneficiarios()
+        this.limpiarCamposBeneficiario();
     }
 
-    private validarDatosBeneficiario() {
-        let datosOk = false;
-        let mensaje = "";
+    private isDatosBeneficiariosFailed() {
+        const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0) + this.beneficiarioPorcentaje;
 
-        if (this.validateUtils.isEmptyOrNull(this.beneficiarioNombres)) {
-            mensaje = "Debe ingresar el(los) nombre(s)"
-        } else if (this.validateUtils.isEmptyOrNull(this.beneficiarioPrimerApellido)) {
-            mensaje = "Debe ingresar el primer apellido"
-        } else if (this.validateUtils.isEmptyOrNull(this.beneficiarioPorcentaje)) {
-            mensaje = "Debe ingresar el porcentaje"
-        } else {
-            const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0) + this.beneficiarioPorcentaje;
-            if (totalPorcentaje > 100) {
-                mensaje = "El porcentaje no puede ser mayor que 100"
-            } else {
-                datosOk = true;
-            }
+        if (this.validateFields.showMessageIfFieldFailed(
+            [
+                [this.beneficiarioNombres, "Nombres"],
+                [this.beneficiarioPrimerApellido, "Primer apellido"],
+                [this.beneficiarioPorcentaje, "Porcentaje"],
+                [totalPorcentaje > 100, "El porcentaje no puede ser mayor que 100", true]
+            ])) {
+            return true;
         }
 
-        this.snackBar.open(mensaje, "AVISO", {
-            duration: 2000
-        });
-
-        return datosOk;
+        return false;
     }
 
     private limpiarCamposBeneficiario() {
@@ -114,7 +105,7 @@ export class AsociadoEdicionComponent implements OnInit {
         this.beneficiarios.forEach((b, index) => {
             if (b.nombreCompleto == row.nombreCompleto) {
                 this.beneficiarios.splice(index, 1);
-                this.cargarGridBeneficiarios();
+                this.cargarTablaBeneficiarios();
             }
         })
     }
@@ -125,51 +116,44 @@ export class AsociadoEdicionComponent implements OnInit {
         this.asociado.tipoDocumento = tipoDocumento;
         this.asociado.fechaNacimiento = moment(this.fechaNacimientoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
 
-        if (this.validarDatosAsociado()) {
-            this.asociado.beneficiarios = this.beneficiarios;
-
-            this.dialogUtils.confirmarProceso((): void => {
-                if (this.asociado.idAsociado > 0) {
-                    this.asociadoGuardado = this.asociadoService.modificar(this.asociado)
-                } else {
-                    this.asociadoGuardado = this.asociadoService.agregar(this.asociado)
-                }
-
-                this.asociadoGuardado.subscribe(data => {
-                    this.asociadoService.setMensajeCambio("Se registró");
-                });
-
-                this.cerrar();
-            })
-
+        if (this.isDatosAsociadoFailed()) {
+            return;
         }
+
+        this.asociado.beneficiarios = this.beneficiarios;
+
+        this.dialogUtils.confirmarProceso((): void => {
+            if (this.asociado.idAsociado > 0) {
+                this.asociadoGuardado = this.asociadoService.modificar(this.asociado)
+            } else {
+                this.asociadoGuardado = this.asociadoService.agregar(this.asociado)
+            }
+
+            this.asociadoGuardado.subscribe(data => {
+                this.asociadoService.setMensajeCambio("Se registró");
+            });
+
+            this.cerrar();
+        })
+
     }
 
-    private validarDatosAsociado() {
-        let datosOk = false;
-        let mensaje = "";
+    private isDatosAsociadoFailed() {
         let hayBeneficiarios = this.beneficiarios.length > 0;
         const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0);
 
-        if (this.validateUtils.isEmptyOrNull(this.asociado.numeroDocumento)) {
-            mensaje = "Debe ingresar el número de documento"
-        } else if (this.validateUtils.isEmptyOrNull(this.asociado.nombres)) {
-            mensaje = "Debe ingresar el(los) nombre(s)"
-        } else if (this.validateUtils.isEmptyOrNull(this.asociado.primerApellido)) {
-            mensaje = "Debe ingresar el primer apellido"
-        } else if (this.validateUtils.isEmptyOrNull(this.asociado.fechaNacimiento)) {
-            mensaje = "Debe ingresar la fecha de nacimiento"
-        } else if (hayBeneficiarios && totalPorcentaje != 100) {
-            mensaje = "El porcentaje para los beneficiarios debe sumar 100"
-        } else {
-            datosOk = true;
+        if (this.validateFields.showMessageIfFieldFailed(
+            [
+                [this.asociado.numeroDocumento, "Número de documento"],
+                [this.asociado.fechaNacimiento, "Fecha de nacimiento"],
+                [this.asociado.nombres, "Nombres"],
+                [this.asociado.primerApellido, "Primer apellido"],
+                [(hayBeneficiarios && totalPorcentaje != 100), "El porcentaje para los beneficiarios debe sumar 100", true]
+            ])) {
+            return true;
         }
 
-        this.snackBar.open(mensaje, "AVISO", {
-            duration: 2000
-        });
-
-        return datosOk;
+        return false;
     }
 
     public cerrar() {
