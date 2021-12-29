@@ -6,6 +6,7 @@ export class Captacion {
     idCaptacion: number;
     tipoCaptacion: TipoCaptacion
     numeroCuenta: number;
+    numeroCuentaCompleto: string;
     asociado: Asociado;
     tipoEstadoCaptacion: TipoEstadoCaptacion;
     fechaApertura: string;

@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class NotificacionService {
     private mensajeCambio: Subject<string> = new Subject<string>();
     private asociadoSelect: Subject<any> = new Subject<Object>();
+    private captacionSelect: Subject<any> = new Subject<Object>();
 
     constructor() { }
 
@@ -24,5 +25,13 @@ export class NotificacionService {
 
     setAsociadoSelect(objeto: any) {
         this.asociadoSelect.next(objeto);
+    }
+
+    setCaptacionSelect(objeto: any) {
+        this.captacionSelect.next(objeto);
+    }
+
+    getCaptacionSelect() {
+        return this.captacionSelect.asObservable();
     }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AsociadoBuscarComponent } from 'src/app/asociado/components/asociado-buscar/asociado-buscar.component';
-import { Asociado } from 'src/app/asociado/models/asociado';
+import { NotificacionService } from 'src/app/shared/service/notificacion.service';
+import { Captacion } from '../models/captacion';
+import { CaptacionService } from '../service/captacion.service';
 
 @Component({
     selector: 'app-captacion-main',
@@ -10,16 +12,18 @@ import { Asociado } from 'src/app/asociado/models/asociado';
 export class CaptacionComponent implements OnInit {
 
     @ViewChild(AsociadoBuscarComponent) AsociadoBuscar;
-    asociadoSelect: Asociado;
+    captacionSelect: Captacion;
 
-    constructor() { }
+    constructor(
+        private captacionService: CaptacionService,
+        private notificacionService: NotificacionService
+    ) { }
 
     ngOnInit(): void {
-    }
-
-
-    public mostrarAsociado() {
-        console.log(this.AsociadoBuscar.asociadoSelect);
+        this.notificacionService.getCaptacionSelect().subscribe(data => {
+            this.captacionSelect = data;
+            console.log(data);
+        });
     }
 
 }
