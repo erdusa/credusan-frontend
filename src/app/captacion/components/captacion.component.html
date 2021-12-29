@@ -3,3 +3,23 @@
 
 <h2>Listado de Captaciones</h2>
 <app-captacion-buscar></app-captacion-buscar>
+
+<div style="text-align: center;">
+
+    <button mat-raised-button
+            color="primary"
+            (click)="agregarCaptacion()"
+            class="action_button">
+        <mat-icon>add</mat-icon>
+        Agregar
+    </button>
+
+    <button mat-raised-button
+            color="accent"
+            [disabled]="(noPermiteSaldarCaptacion)"
+            (click)="saldarCaptacion()"
+            class="action_button">
+        <mat-icon>close</mat-icon>
+        Saldar
+    </button>
+</div>

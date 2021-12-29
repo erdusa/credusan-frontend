@@ -5,14 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 import { CaptacionComponent } from './captacion/components/captacion.component';
 import { AsociadoComponent } from './asociado/components/asociado.component';
 import { AsociadoEdicionComponent } from './asociado/components/asociado-edicion/asociado-edicion.component';
 import { AsociadoBuscarComponent } from './asociado/components/asociado-buscar/asociado-buscar.component';
 import { DialogConfirmComponent } from './shared/dialog-confirm/dialog-confirm.component';
-import { CaptacionBuscarComponent } from './captacion/components/buscar-captacion/captacion-buscar.component';
+import { CaptacionBuscarComponent } from './captacion/components/captacion-buscar/captacion-buscar.component';
+import { CaptacionAgregarComponent } from './captacion/components/captacion-agregar/captacion-agregar.component';
+import { ServerErrorsInterceptor } from './shared/utils/server-errors.interceptor';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,8 @@ import { CaptacionBuscarComponent } from './captacion/components/buscar-captacio
         AsociadoEdicionComponent,
         AsociadoBuscarComponent,
         DialogConfirmComponent,
-        CaptacionBuscarComponent
+        CaptacionBuscarComponent,
+        CaptacionAgregarComponent
     ],
     imports: [
         BrowserModule,
@@ -33,7 +36,13 @@ import { CaptacionBuscarComponent } from './captacion/components/buscar-captacio
         HttpClientModule,
         MaterialModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ServerErrorsInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -27,6 +27,10 @@ export class CaptacionBuscarComponent implements OnInit {
             this.idAsociado = data.idAsociado;
             this.listarCaptaciones(this.idAsociado);
         });
+
+        this.captacionService.getCaptacionModificada().subscribe(data => {
+            this.listarCaptaciones(this.idAsociado);
+        })
     }
 
     private listarCaptaciones(idAsociado: number) {
