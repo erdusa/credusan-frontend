@@ -1,10 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs';
+import { NotificacionService } from 'src/app/shared/service/notificacion.service';
 import { Asociado } from '../../models/asociado';
 import { AsociadoService } from '../../services/asociado.service';
 
@@ -29,13 +29,13 @@ export class AsociadoBuscarComponent implements OnInit {
 
     constructor(
         private asociadoService: AsociadoService,
-        private snackBar: MatSnackBar
+        private notificacionService: NotificacionService
     ) { }
 
     ngOnInit(): void {
         this.listarAsociados();
 
-        this.asociadoService.getMensajeCambio().subscribe(data => {
+        this.notificacionService.getMensajeCambio().subscribe(data => {
             this.listarAsociados();
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -92,7 +92,7 @@ export class AsociadoBuscarComponent implements OnInit {
 
     public seleccionarAsociado(asociado: Asociado) {
         this.selection.toggle(asociado)
-        this.asociadoService.setAsociadoSelect(asociado);
+        this.notificacionService.setAsociadoSelect(asociado);
     }
 
     private definirColumnasAMostrar() {

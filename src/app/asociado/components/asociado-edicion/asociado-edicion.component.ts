@@ -10,6 +10,7 @@ import { Beneficiario } from '../../models/beneficiario';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { ValidateFields } from 'src/app/shared/utils/validate-fields';
+import { NotificacionService } from 'src/app/shared/service/notificacion.service';
 
 @Component({
     selector: 'app-asociado-edicion',
@@ -39,6 +40,7 @@ export class AsociadoEdicionComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) private data: Asociado,
         private asociadoService: AsociadoService,
         private tipoDocumentoService: TipoDocumentoService,
+        private notificacionService: NotificacionService,
         private dialogUtils: DialogUtils,
         private validateFields: ValidateFields
     ) { }
@@ -129,7 +131,7 @@ export class AsociadoEdicionComponent implements OnInit {
             }
 
             this.asociadoGuardado.subscribe(data => {
-                this.asociadoService.setMensajeCambio("Se registró");
+                this.notificacionService.setMensajeCambio("Se registró");
             });
 
             this.cerrar();

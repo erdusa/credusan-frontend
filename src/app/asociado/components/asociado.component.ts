@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificacionService } from 'src/app/shared/service/notificacion.service';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { Asociado } from '../models/asociado';
 import { AsociadoService } from '../services/asociado.service';
@@ -21,6 +22,7 @@ export class AsociadoComponent implements OnInit {
 
     constructor(
         private asociadoService: AsociadoService,
+        private notificacionService: NotificacionService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private dialogUtils: DialogUtils
@@ -28,13 +30,13 @@ export class AsociadoComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.asociadoService.getMensajeCambio().subscribe(data => {
+        this.notificacionService.getMensajeCambio().subscribe(data => {
             this.snackBar.open(data, 'AVISO', {
                 duration: 2000
             });
         });
 
-        this.asociadoService.getAsociadoSelect().subscribe(data => {
+        this.notificacionService.getAsociadoSelect().subscribe(data => {
             this.asociadoSelect = data;
             this.asociadoEdit = true;
             this.asociadoActivo = data.activo;
@@ -63,7 +65,7 @@ export class AsociadoComponent implements OnInit {
     public retirarAsociado() {
         this.dialogUtils.confirmarProceso((): void => {
             this.asociadoService.retirarAsociado(this.asociadoSelect.idAsociado).subscribe(data => {
-                this.asociadoService.setMensajeCambio("Asociado retirado");
+                this.notificacionService.setMensajeCambio("Asociado retirado");
             });
         })
     }

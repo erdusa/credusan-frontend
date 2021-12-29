@@ -10,8 +10,6 @@ import { Asociado } from '../models/asociado';
 export class AsociadoService {
 
     private url: string = `${environment.HOST}/asociados`;
-    private mensajeCambio: Subject<string> = new Subject<string>();
-    private asociadoSelect: Subject<Asociado> = new Subject<Asociado>();
 
     constructor(
         private http: HttpClient
@@ -35,21 +33,5 @@ export class AsociadoService {
 
     public retirarAsociado(idAsociado: number) {
         return this.http.put(`${this.url}/retirar/${idAsociado}`, null);
-    }
-
-    getMensajeCambio() {
-        return this.mensajeCambio.asObservable();
-    }
-
-    setMensajeCambio(msj: string) {
-        this.mensajeCambio.next(msj);
-    }
-
-    getAsociadoSelect() {
-        return this.asociadoSelect.asObservable();
-    }
-
-    setAsociadoSelect(asociado: Asociado) {
-        this.asociadoSelect.next(asociado);
     }
 }
