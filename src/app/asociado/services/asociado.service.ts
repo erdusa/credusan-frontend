@@ -10,7 +10,6 @@ import { Asociado } from '../models/asociado';
 export class AsociadoService {
 
     private url: string = `${environment.HOST}/asociados`;
-    private asociadoCambio: Subject<Asociado[]> = new Subject<Asociado[]>();
     private mensajeCambio: Subject<string> = new Subject<string>();
     private asociadoSelect: Subject<Asociado> = new Subject<Asociado>();
 

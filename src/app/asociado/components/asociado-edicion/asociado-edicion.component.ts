@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, switchMap } from 'rxjs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { Asociado } from '../../models/asociado';
 import { TipoDocumento } from '../../models/tipoDocumento';
 import { AsociadoService } from '../../services/asociado.service';
@@ -45,7 +45,6 @@ export class AsociadoEdicionComponent implements OnInit {
 
     ngOnInit(): void {
         this.asociado = { ...this.data };
-        console.log(this.data);
 
         this.tipoDocumento$ = this.tipoDocumentoService.listar();
         this.idTipoDocumentoSeleccionado = this.asociado.tipoDocumento != null ? this.asociado.tipoDocumento.idTipoDocumento : 3;
