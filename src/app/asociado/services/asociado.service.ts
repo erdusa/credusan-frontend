@@ -34,4 +34,8 @@ export class AsociadoService {
     public retirarAsociado(idAsociado: number) {
         return this.http.put(`${this.url}/retirar/${idAsociado}`, null);
     }
+
+    public vincularAsociado(idAsociado: number) {
+        return this.http.put(`${this.url}/vincular/${idAsociado}`, null);
+    }
 }

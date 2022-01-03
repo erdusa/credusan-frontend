@@ -59,7 +59,11 @@ export class AsociadoComponent implements OnInit {
     }
 
     public vincularAsociado() {
-
+        this.dialogUtils.confirmarProceso((): void => {
+            this.asociadoService.vincularAsociado(this.asociadoSelect.idAsociado).subscribe(data => {
+                this.notificacionService.setMensajeCambio("Asociado vinculado");
+            });
+        })
     }
 
     public retirarAsociado() {

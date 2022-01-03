@@ -61,6 +61,7 @@ export class CaptacionAgregarComponent implements OnInit {
             this.captacionService.crearCaptacion(captacion).subscribe(data => {
                 this.captacionService.setCaptacionModificada(captacion);
                 this.notificacionService.setMensajeCambio("Se registró la nueva captación");
+                this.cerrar();
             });
         });
 
