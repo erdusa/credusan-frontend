@@ -4,10 +4,11 @@
 <h2>Listado de Captaciones</h2>
 <app-captacion-buscar></app-captacion-buscar>
 
-<div style="text-align: center;">
+<div class="botones_abajo">
 
     <button mat-raised-button
             color="primary"
+            [disabled]="!hayAsociadoSeleccionado"
             (click)="agregarCaptacion()"
             class="action_button">
         <mat-icon>add</mat-icon>

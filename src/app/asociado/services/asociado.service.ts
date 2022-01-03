@@ -15,8 +15,8 @@ export class AsociadoService {
         private http: HttpClient
     ) { }
 
-    public listar(p: number, s: number) {
-        return this.http.get<any>(`${this.url}?page=${p}&size=${s}&sort=nombres&sort=primerApellido&sort=segundoApellido`);
+    public listar(p: number, s: number, soloActivos: boolean) {
+        return this.http.get<any>(`${this.url}?soloActivos=${soloActivos}&page=${p}&size=${s}&sort=nombres&sort=primerApellido&sort=segundoApellido`,);
     }
 
     public listarPorNombres(nombres: string) {

@@ -25,6 +25,10 @@ export class CaptacionService {
         return this.http.put(`${this.url}/saldar/${idCaptacion}`, null);
     }
 
+    public crearCaptacion(captacion: Captacion) {
+        return this.http.post(this.url, captacion);
+    }
+
     setCaptacionModificada(captacion: Captacion) {
         this.captacionModificada.next(captacion);
     }

@@ -1,1 +1,17 @@
-<p>captacion-agregar works!</p>
+<mat-form-field>
+    <mat-select placeholder="Tipo de Captación"
+                [(ngModel)]="idTipoCaptacionSeleccionada">
+        <mat-option *ngFor="let e of (tipoCaptacion$ | async)"
+                    [value]="e.idTipoCaptacion">
+            {{e.nombre}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<div class="botones_abajo">
+    <button mat-raised-button
+            color="primary"
+            (click)="guardar()">Aceptar</button>
+    <button mat-raised-button
+            color="accent"
+            (click)="cerrar()">Cancelar</button>
+</div>

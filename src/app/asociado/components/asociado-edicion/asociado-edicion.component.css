@@ -37,6 +37,9 @@
 }
 
 .botones_abajo {
-  margin-top: 5px;
-  text-align: right;
+  text-align: center;
+}
+
+.action_button {
+    margin: 5px;
 }

@@ -59,16 +59,10 @@ export class AsociadoBuscarComponent implements OnInit {
     }
 
     private listarPaginable(pageIndex: number, pageSize: number) {
-        this.asociadoService.listar(pageIndex, pageSize)
-            .pipe(map(data => data.content.filter(a => {
-                if (this.soloAsociadosActivos) {
-                    return a.activo;
-                }
-                return true;
-            })))
+        this.asociadoService.listar(pageIndex, pageSize, this.soloAsociadosActivos)
             .subscribe(data => {
-                this.cantidad = data.length;
-                this.dataSource = new MatTableDataSource(data);
+                this.cantidad = data.totalElements;
+                this.dataSource = new MatTableDataSource(data.content);
             });
     }
 
