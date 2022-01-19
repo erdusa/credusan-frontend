@@ -1,0 +1,18 @@
+<h1>Registrar Operaciones</h1>
+<app-asociado-buscar [soloAsociadosActivos]=true></app-asociado-buscar>
+
+<h2>Listado de Captaciones</h2>
+<app-captacion-buscar [soloCaptacionesActivas]=true></app-captacion-buscar>
+
+<div class="botones_abajo">
+
+
+    <button mat-raised-button
+            color="primary"
+            [disabled]="(!permiteVerExtracto)"
+            (click)="verExtracto()"
+            class="action_button">
+        <mat-icon>visibility</mat-icon>
+        Ver Extracto
+    </button>
+</div>

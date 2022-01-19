@@ -5,7 +5,6 @@ import { NotificacionService } from 'src/app/shared/service/notificacion.service
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { Asociado } from '../models/asociado';
 import { AsociadoService } from '../services/asociado.service';
-import { AsociadoBuscarComponent } from './asociado-buscar/asociado-buscar.component';
 import { AsociadoEdicionComponent } from './asociado-edicion/asociado-edicion.component';
 
 @Component({
@@ -15,7 +14,6 @@ import { AsociadoEdicionComponent } from './asociado-edicion/asociado-edicion.co
 })
 export class AsociadoComponent implements OnInit {
 
-    @ViewChild(AsociadoBuscarComponent) AsociadoBuscar;
     asociadoSelect: Asociado;
     asociadoEdit: boolean = false;
     asociadoActivo: boolean = false;

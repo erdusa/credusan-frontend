@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,9 +20,7 @@ export class AsociadoBuscarComponent implements OnInit {
     displayedColumns: string[];
     selection = new SelectionModel<Asociado>(false, []);
     cantidad: number;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-    readonly CANTIDAD_RESGISTROS_POR_PAGINA: number = 10;
+    CANTIDAD_RESGISTROS_POR_PAGINA: number = 10;
     filtroPorNombres: string = "";
     @Input()
     soloAsociadosActivos: boolean = false;
@@ -30,15 +28,15 @@ export class AsociadoBuscarComponent implements OnInit {
     constructor(
         private asociadoService: AsociadoService,
         private notificacionService: NotificacionService
-    ) { }
+    ) {
+    }
 
     ngOnInit(): void {
+
         this.listarAsociados();
 
         this.notificacionService.getMensajeCambio().subscribe(data => {
             this.listarAsociados();
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
         });
 
         this.definirColumnasAMostrar();
@@ -54,6 +52,10 @@ export class AsociadoBuscarComponent implements OnInit {
         if (this.filtroPorNombres != "") {
             this.listarPorNombres(this.filtroPorNombres);
         } else {
+            if (this.soloAsociadosActivos) {
+                this.CANTIDAD_RESGISTROS_POR_PAGINA = 5;
+            }
+
             this.listarPaginable(0, this.CANTIDAD_RESGISTROS_POR_PAGINA);
         }
     }

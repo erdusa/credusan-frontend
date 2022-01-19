@@ -46,13 +46,19 @@
                     style="cursor: pointer">
                 <mat-icon>person</mat-icon>
                 <span>Asociados</span>
-            </button>
-            <button mat-menu-item
+            </button><button mat-menu-item
                     (click)="sidenav.toggle()"
                     routerLink="/captacion"
                     style="cursor: pointer">
-                <mat-icon>person</mat-icon>
+                <mat-icon>savings</mat-icon>
                 <span>Captaciones</span>
+            </button>
+            <button mat-menu-item
+                    (click)="sidenav.toggle()"
+                    routerLink="/cajas"
+                    style="cursor: pointer">
+                <mat-icon>attach_money</mat-icon>
+                <span>Cajas</span>
             </button>
 
             <mat-divider></mat-divider>

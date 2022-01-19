@@ -8,8 +8,8 @@ import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { ValidateFields } from 'src/app/shared/utils/validate-fields';
 import { Captacion } from '../../models/captacion';
 import { TipoCaptacion } from '../../models/tipoCaptacion';
-import { CaptacionService } from '../../service/captacion.service';
-import { TipoCaptacionService } from '../../service/tipo-captacion.service';
+import { CaptacionService } from '../../services/captacion.service';
+import { TipoCaptacionService } from '../../services/tipo-captacion.service';
 
 @Component({
     selector: 'app-captacion-agregar',

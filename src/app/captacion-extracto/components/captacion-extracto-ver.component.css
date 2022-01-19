@@ -1,0 +1,27 @@
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.valor-negativo {
+    color: red;
+    text-align: right;
+}
+
+.valor-positivo {
+    color: green;
+    text-align: right;
+}
+
+.botones_abajo {
+  text-align: center;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}

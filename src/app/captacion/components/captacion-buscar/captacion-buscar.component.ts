@@ -1,9 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
 import { Captacion } from '../../models/captacion';
-import { CaptacionService } from '../../service/captacion.service';
+import { CaptacionService } from '../../services/captacion.service';
+import { map } from 'rxjs';
 
 @Component({
     selector: 'app-captacion-buscar',
@@ -16,6 +17,8 @@ export class CaptacionBuscarComponent implements OnInit {
     dataSource: MatTableDataSource<Captacion>;
     displayedColumns: string[] = ["tipoCaptacion", "numeroCuenta", "estado", "fechaApertura", "saldo"];
     selection = new SelectionModel<Captacion>(false, []);
+    @Input()
+    soloCaptacionesActivas: boolean = false;
 
     constructor(
         private captacionService: CaptacionService,
@@ -34,9 +37,16 @@ export class CaptacionBuscarComponent implements OnInit {
     }
 
     private listarCaptaciones(idAsociado: number) {
-        this.captacionService.listar(idAsociado).subscribe(data =>
-            this.dataSource = new MatTableDataSource(data)
-        );
+        this.captacionService.listar(idAsociado)
+            .pipe(map(captaciones => captaciones.filter(c => {
+                if (this.soloCaptacionesActivas) {
+                    return (c.tipoEstadoCaptacion.idTipoEstadoCaptacion == 1);
+                }
+                return true;
+            })))
+            .subscribe(data =>
+                this.dataSource = new MatTableDataSource(data)
+            );
     }
 
     public seleccionarCaptacion(captacion: Captacion) {

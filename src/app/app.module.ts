@@ -15,6 +15,8 @@ import { DialogConfirmComponent } from './shared/dialog-confirm/dialog-confirm.c
 import { CaptacionBuscarComponent } from './captacion/components/captacion-buscar/captacion-buscar.component';
 import { CaptacionAgregarComponent } from './captacion/components/captacion-agregar/captacion-agregar.component';
 import { ServerErrorsInterceptor } from './shared/utils/server-errors.interceptor';
+import { CajasComponent } from './cajas/components/cajas.component';
+import { CaptacionExtractoVerComponent } from './captacion-extracto/components/captacion-extracto-ver.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +27,9 @@ import { ServerErrorsInterceptor } from './shared/utils/server-errors.intercepto
         AsociadoBuscarComponent,
         DialogConfirmComponent,
         CaptacionBuscarComponent,
-        CaptacionAgregarComponent
+        CaptacionAgregarComponent,
+        CajasComponent,
+        CaptacionExtractoVerComponent
     ],
     imports: [
         BrowserModule,

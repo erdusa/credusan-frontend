@@ -7,7 +7,7 @@ import { EnumTipoCaptacion, EnumTipoEstadoCaptacion } from 'src/app/shared/enums
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { Captacion } from '../models/captacion';
-import { CaptacionService } from '../service/captacion.service';
+import { CaptacionService } from '../services/captacion.service';
 import { CaptacionAgregarComponent } from './captacion-agregar/captacion-agregar.component';
 
 @Component({
@@ -17,7 +17,6 @@ import { CaptacionAgregarComponent } from './captacion-agregar/captacion-agregar
 })
 export class CaptacionComponent implements OnInit {
 
-    @ViewChild(AsociadoBuscarComponent) AsociadoBuscar;
     captacionSelect: Captacion;
     noPermiteSaldarCaptacion: boolean = true;
     asociado: Asociado;
