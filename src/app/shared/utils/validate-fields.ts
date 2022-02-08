@@ -6,38 +6,29 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class ValidateFields {
 
-    constructor(
-        private snackBar: MatSnackBar
-    ) { }
-
-    public isEmptyOrNull(dato: any) {
-        return (typeof dato == 'undefined'
-            || (typeof dato == 'string' && dato.length == 0)
-            || (typeof dato == 'string' && dato == 'Invalid date')
-            || (typeof dato == 'number' && dato == 0)
-            || (typeof dato == 'boolean' && dato)
-        );
+    public static isEmptyOrNull(dato: any) {
+        return (!Boolean(dato) || dato == 'Invalid date');
     }
 
-    public returnEmptyForNull(dato: any) {
+    public static returnEmptyForNull(dato: any) {
         if (!this.isEmptyOrNull(dato)) {
             return dato;
         }
         return "";
     }
 
-    public showMessageIfFieldFailed(datos: any[][]) {
+    public static showMessageIfFieldFailed(snackBar: MatSnackBar, datos: any[][]) {
         let mensaje = this.getMessageIsAnyEmpty(datos);
         if (this.isEmptyOrNull(mensaje)) {
             return false;
         }
-        this.snackBar.open(mensaje, "AVISO", {
+        snackBar.open(mensaje, "AVISO", {
             duration: 2000
         });
         return true;
     }
 
-    private getMessageIsAnyEmpty(datos: any[][]) {
+    private static getMessageIsAnyEmpty(datos: any[][]) {
         let mensaje = "";
         let mensajePropio = false;
 

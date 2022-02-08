@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { ValidateFields } from 'src/app/shared/utils/validate-fields';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-asociado-edicion',
@@ -42,7 +43,7 @@ export class AsociadoEdicionComponent implements OnInit {
         private tipoDocumentoService: TipoDocumentoService,
         private notificacionService: NotificacionService,
         private dialogUtils: DialogUtils,
-        private validateFields: ValidateFields
+        private snackBar: MatSnackBar
     ) { }
 
     ngOnInit(): void {
@@ -51,7 +52,7 @@ export class AsociadoEdicionComponent implements OnInit {
         this.tipoDocumento$ = this.tipoDocumentoService.listar();
         this.idTipoDocumentoSeleccionado = this.asociado.tipoDocumento != null ? this.asociado.tipoDocumento.idTipoDocumento : 3;
         this.fechaNacimientoSeleccionada = moment(this.asociado.fechaNacimiento, 'YYYY-MM-DD').toDate();
-        if (!this.validateFields.isEmptyOrNull(this.asociado.beneficiarios)) {
+        if (!ValidateFields.isEmptyOrNull(this.asociado.beneficiarios)) {
             this.asociado.beneficiarios.forEach(b => this.beneficiarios.push(b));
             this.cargarTablaBeneficiarios()
         }
@@ -71,7 +72,7 @@ export class AsociadoEdicionComponent implements OnInit {
         beneficiario.segundoApellido = this.beneficiarioSegundoApellido;
         beneficiario.nombreCompleto = (beneficiario.nombres + " "
             + beneficiario.primerApellido
-            + " " + this.validateFields.returnEmptyForNull(beneficiario.segundoApellido)
+            + " " + ValidateFields.returnEmptyForNull(beneficiario.segundoApellido)
         ).trim().toUpperCase();
         beneficiario.porcentaje = this.beneficiarioPorcentaje;
         this.beneficiarios.push(beneficiario)
@@ -82,7 +83,7 @@ export class AsociadoEdicionComponent implements OnInit {
     private isDatosBeneficiariosFailed() {
         const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0) + this.beneficiarioPorcentaje;
 
-        if (this.validateFields.showMessageIfFieldFailed(
+        if (ValidateFields.showMessageIfFieldFailed(this.snackBar,
             [
                 [this.beneficiarioNombres, "Nombres"],
                 [this.beneficiarioPrimerApellido, "Primer apellido"],
@@ -143,7 +144,7 @@ export class AsociadoEdicionComponent implements OnInit {
         let hayBeneficiarios = this.beneficiarios.length > 0;
         const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0);
 
-        if (this.validateFields.showMessageIfFieldFailed(
+        if (ValidateFields.showMessageIfFieldFailed(this.snackBar,
             [
                 [this.asociado.numeroDocumento, "Número de documento"],
                 [this.asociado.fechaNacimiento, "Fecha de nacimiento"],
