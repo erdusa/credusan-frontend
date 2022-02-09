@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CaptacionExtractoVerComponent } from 'src/app/captacion-extracto/components/captacion-extracto-ver.component';
 import { Captacion } from 'src/app/captacion/models/captacion';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
+import { CaptacionExtractoAgregarComponent } from './captacion-extracto-agregar/captacion-extracto-agregar.component';
 
 @Component({
     selector: 'app-cajas',
@@ -11,18 +13,21 @@ import { NotificacionService } from 'src/app/shared/service/notificacion.service
 })
 export class CajasComponent implements OnInit {
 
-    permiteVerExtracto: boolean = false;
+    deshabilitaBotones: boolean = true;
     captacionSeleccionada: Captacion;
+    recargaCaptacion: number = 0;
 
     constructor(
         private notificacionService: NotificacionService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private snackBar: MatSnackBar
     ) { }
 
     ngOnInit(): void {
 
         this.recibirNotificacionAsociadoSeleccionado();
         this.recibirNotificacionCaptacionSeleccionada();
+        this.recibirNotificacionRegistroCreado();
 
     }
 
@@ -30,7 +35,7 @@ export class CajasComponent implements OnInit {
 
         this.notificacionService.getAsociadoSelect().subscribe(data => {
             this.captacionSeleccionada = null;
-            this.permiteVerExtracto = false;
+            this.deshabilitaBotones = true;
         });
 
     }
@@ -39,9 +44,28 @@ export class CajasComponent implements OnInit {
 
         this.notificacionService.getCaptacionSelect().subscribe(data => {
             this.captacionSeleccionada = data;
-            this.permiteVerExtracto = true;
+            this.deshabilitaBotones = false;
         });
 
+    }
+
+    private recibirNotificacionRegistroCreado() {
+
+        this.notificacionService.getMensajeCambio().subscribe(data => {
+            this.snackBar.open(data, 'AVISO', {
+                duration: 2000
+            });
+            this.deshabilitaBotones = true;
+            this.recargaCaptacion += 1;
+        });
+
+    }
+
+    public agregarExtracto() {
+        this.dialog.open(CaptacionExtractoAgregarComponent, {
+            width: '50%',
+            data: this.captacionSeleccionada
+        });
     }
 
     public verExtracto() {

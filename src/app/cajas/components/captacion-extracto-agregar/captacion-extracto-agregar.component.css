@@ -1,0 +1,17 @@
+.action_button {
+    margin: 5px;
+}
+
+.text-money {
+    text-align: right;
+}
+
+.retiro {
+    color: red;
+    font-size: 16px;
+}
+
+.consignacion {
+    color: green;
+    font-size: 16px;
+}

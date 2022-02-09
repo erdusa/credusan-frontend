@@ -1,0 +1,33 @@
+<mat-form-field>
+    <mat-select placeholder="Tipo de Operación"
+                [(ngModel)]="tipoOperacion"
+                required>
+        <mat-option value="CONSIGNACION">CONSIGNACIÓN</mat-option>
+        <mat-option value="RETIRO">RETIRO</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+    <input type="number"
+           matInput
+           name="valor"
+           placeholder="Valor"
+           [(ngModel)]="valor"
+           maxlength="8"
+           maxlength="8"
+           class="text-money"
+           required>
+    <span [ngClass]="{'retiro':tipoOperacion==='RETIRO','consignacion':tipoOperacion==='CONSIGNACION'}">
+        {{valor | number}}</span>
+</mat-form-field>
+
+<div class="botones_abajo">
+    <button mat-raised-button
+            color="primary"
+            class="action_button"
+            (click)="guardar()">Aceptar</button>
+    <button mat-raised-button
+            color="accent"
+            class="action_button"
+            (click)="cerrar()">Cancelar</button>
+</div>

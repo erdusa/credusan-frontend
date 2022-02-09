@@ -7,7 +7,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class ValidateFields {
 
     public static isEmptyOrNull(dato: any) {
-        return (!Boolean(dato) || dato == 'Invalid date');
+        return (
+            (typeof dato != 'boolean' && !Boolean(dato))
+            || (typeof dato == 'boolean' && dato)
+            || dato == 'Invalid date');
     }
 
     public static returnEmptyForNull(dato: any) {

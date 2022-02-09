@@ -17,6 +17,7 @@ import { CaptacionAgregarComponent } from './captacion/components/captacion-agre
 import { ServerErrorsInterceptor } from './shared/utils/server-errors.interceptor';
 import { CajasComponent } from './cajas/components/cajas.component';
 import { CaptacionExtractoVerComponent } from './captacion-extracto/components/captacion-extracto-ver.component';
+import { CaptacionExtractoAgregarComponent } from './cajas/components/captacion-extracto-agregar/captacion-extracto-agregar.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { CaptacionExtractoVerComponent } from './captacion-extracto/components/c
         CaptacionBuscarComponent,
         CaptacionAgregarComponent,
         CajasComponent,
-        CaptacionExtractoVerComponent
+        CaptacionExtractoVerComponent,
+        CaptacionExtractoAgregarComponent
     ],
     imports: [
         BrowserModule,

@@ -19,6 +19,8 @@ export class CaptacionBuscarComponent implements OnInit {
     selection = new SelectionModel<Captacion>(false, []);
     @Input()
     soloCaptacionesActivas: boolean = false;
+    @Input()
+    recargaListaCaptaciones: number = 0;
 
     constructor(
         private captacionService: CaptacionService,
@@ -34,6 +36,13 @@ export class CaptacionBuscarComponent implements OnInit {
         this.captacionService.getCaptacionModificada().subscribe(data => {
             this.listarCaptaciones(this.idAsociado);
         })
+    }
+
+    ngOnChanges() {
+
+        if (this.recargaListaCaptaciones > 0) {
+            this.listarCaptaciones(this.idAsociado);
+        }
     }
 
     private listarCaptaciones(idAsociado: number) {

@@ -2,14 +2,22 @@
 <app-asociado-buscar [soloAsociadosActivos]=true></app-asociado-buscar>
 
 <h2>Listado de Captaciones</h2>
-<app-captacion-buscar [soloCaptacionesActivas]=true></app-captacion-buscar>
+<app-captacion-buscar [soloCaptacionesActivas]=true
+                      [recargaListaCaptaciones]="recargaCaptacion"></app-captacion-buscar>
 
 <div class="botones_abajo">
 
-
+    <button mat-raised-button
+            color="accent"
+            [disabled]="deshabilitaBotones"
+            (click)="agregarExtracto()"
+            class="action_button">
+        <mat-icon>add</mat-icon>
+        Agregar Extracto
+    </button>
     <button mat-raised-button
             color="primary"
-            [disabled]="(!permiteVerExtracto)"
+            [disabled]="deshabilitaBotones"
             (click)="verExtracto()"
             class="action_button">
         <mat-icon>visibility</mat-icon>
