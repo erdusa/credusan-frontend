@@ -43,7 +43,7 @@ export class ServerErrorsInterceptor implements HttpInterceptor {
                 else if (err.status === 500) {
                     this.snackBar.open(err.error.mensaje, 'ERROR 500', { duration: 5000 });
                 } else {
-                    this.snackBar.open(err.error.mensaje, 'ERROR', { duration: 5000 });
+                    this.snackBar.open('Error desconocido', 'ERROR', { duration: 5000 });
                 }
                 return EMPTY;
             }));

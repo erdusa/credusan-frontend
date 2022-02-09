@@ -1,7 +1,5 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CaptacionExtracto } from 'src/app/captacion-extracto/models/captacionExtracto';
 import { Captacion } from 'src/app/captacion/models/captacion';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
@@ -25,7 +23,6 @@ export class CaptacionExtractoAgregarComponent implements OnInit {
         private notificacionService: NotificacionService,
         @Inject(MAT_DIALOG_DATA) private data: Captacion,
         private dialogRef: MatDialogRef<CaptacionExtractoAgregarComponent>,
-        private snackBar: MatSnackBar,
         private dialogUtils: DialogUtils
     ) { }
 
@@ -35,7 +32,7 @@ export class CaptacionExtractoAgregarComponent implements OnInit {
 
 
     public guardar() {
-        if (ValidateFields.showMessageIfFieldFailed(this.snackBar,
+        if (ValidateFields.showMessageIfFieldFailed(this.notificacionService,
             [
                 [this.tipoOperacion, "tipo de operación"],
                 [this.valor, "valor"],

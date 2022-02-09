@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AsociadoBuscarComponent } from 'src/app/asociado/components/asociado-buscar/asociado-buscar.component';
 import { Asociado } from 'src/app/asociado/models/asociado';
 import { EnumTipoCaptacion, EnumTipoEstadoCaptacion } from 'src/app/shared/enums/enums-captacion';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
@@ -26,7 +24,6 @@ export class CaptacionComponent implements OnInit {
         private captacionService: CaptacionService,
         private notificacionService: NotificacionService,
         private dialog: MatDialog,
-        private snackBar: MatSnackBar,
         private dialogUtils: DialogUtils
     ) { }
 
@@ -42,12 +39,6 @@ export class CaptacionComponent implements OnInit {
                 this.captacionSelect.tipoEstadoCaptacion.idTipoEstadoCaptacion == EnumTipoEstadoCaptacion.SALDADA
                 || this.captacionSelect.tipoCaptacion.idTipoCaptacion == EnumTipoCaptacion.APORTES;
         });
-
-        this.notificacionService.getMensajeCambio().subscribe(data => {
-            this.snackBar.open(data, 'AVISO', {
-                duration: 2000
-            });
-        });
     }
 
     public agregarCaptacion() {
@@ -61,10 +52,8 @@ export class CaptacionComponent implements OnInit {
         this.dialogUtils.confirmarProceso((): void => {
             this.captacionService.saldarCaptacion(this.captacionSelect.idCaptacion).subscribe(data => {
                 this.noPermiteSaldarCaptacion = true;
-                this.captacionService.setCaptacionModificada(this.captacionSelect)
-                this.snackBar.open("Captación saldada", 'AVISO', {
-                    duration: 2000
-                });
+                this.captacionService.setCaptacionModificada(this.captacionSelect);
+                this.notificacionService.setMensajeCambio("Captación saldada");
             });
         })
     }

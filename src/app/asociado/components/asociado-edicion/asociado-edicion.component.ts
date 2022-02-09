@@ -11,7 +11,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { ValidateFields } from 'src/app/shared/utils/validate-fields';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-asociado-edicion',
@@ -42,8 +41,7 @@ export class AsociadoEdicionComponent implements OnInit {
         private asociadoService: AsociadoService,
         private tipoDocumentoService: TipoDocumentoService,
         private notificacionService: NotificacionService,
-        private dialogUtils: DialogUtils,
-        private snackBar: MatSnackBar
+        private dialogUtils: DialogUtils
     ) { }
 
     ngOnInit(): void {
@@ -83,7 +81,7 @@ export class AsociadoEdicionComponent implements OnInit {
     private isDatosBeneficiariosFailed() {
         const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0) + this.beneficiarioPorcentaje;
 
-        if (ValidateFields.showMessageIfFieldFailed(this.snackBar,
+        if (ValidateFields.showMessageIfFieldFailed(this.notificacionService,
             [
                 [this.beneficiarioNombres, "Nombres"],
                 [this.beneficiarioPrimerApellido, "Primer apellido"],
@@ -144,7 +142,7 @@ export class AsociadoEdicionComponent implements OnInit {
         let hayBeneficiarios = this.beneficiarios.length > 0;
         const totalPorcentaje = this.beneficiarios.reduce((sum, actual) => sum + actual.porcentaje, 0);
 
-        if (ValidateFields.showMessageIfFieldFailed(this.snackBar,
+        if (ValidateFields.showMessageIfFieldFailed(this.notificacionService,
             [
                 [this.asociado.numeroDocumento, "Número de documento"],
                 [this.asociado.fechaNacimiento, "Fecha de nacimiento"],

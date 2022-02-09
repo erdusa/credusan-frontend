@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
 import { Asociado } from '../models/asociado';
@@ -22,17 +21,10 @@ export class AsociadoComponent implements OnInit {
         private asociadoService: AsociadoService,
         private notificacionService: NotificacionService,
         private dialog: MatDialog,
-        private snackBar: MatSnackBar,
         private dialogUtils: DialogUtils
     ) { }
 
     ngOnInit(): void {
-
-        this.notificacionService.getMensajeCambio().subscribe(data => {
-            this.snackBar.open(data, 'AVISO', {
-                duration: 2000
-            });
-        });
 
         this.notificacionService.getAsociadoSelect().subscribe(data => {
             this.asociadoSelect = data;

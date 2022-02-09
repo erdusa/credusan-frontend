@@ -18,6 +18,7 @@ import { ServerErrorsInterceptor } from './shared/utils/server-errors.intercepto
 import { CajasComponent } from './cajas/components/cajas.component';
 import { CaptacionExtractoVerComponent } from './captacion-extracto/components/captacion-extracto-ver.component';
 import { CaptacionExtractoAgregarComponent } from './cajas/components/captacion-extracto-agregar/captacion-extracto-agregar.component';
+import { ShowMessagesComponent } from './shared/show-messages/show-messages.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { CaptacionExtractoAgregarComponent } from './cajas/components/captacion-
         CaptacionAgregarComponent,
         CajasComponent,
         CaptacionExtractoVerComponent,
-        CaptacionExtractoAgregarComponent
+        CaptacionExtractoAgregarComponent,
+        ShowMessagesComponent
     ],
     imports: [
         BrowserModule,

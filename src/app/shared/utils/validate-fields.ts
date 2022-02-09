@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { NotificacionService } from "../service/notificacion.service";
 
 @Injectable({
     providedIn: 'root'
@@ -20,14 +20,12 @@ export class ValidateFields {
         return "";
     }
 
-    public static showMessageIfFieldFailed(snackBar: MatSnackBar, datos: any[][]) {
+    public static showMessageIfFieldFailed(notificacionService: NotificacionService, datos: any[][]) {
         let mensaje = this.getMessageIsAnyEmpty(datos);
         if (this.isEmptyOrNull(mensaje)) {
             return false;
         }
-        snackBar.open(mensaje, "AVISO", {
-            duration: 2000
-        });
+        notificacionService.setMensajeCambio(mensaje);
         return true;
     }
 

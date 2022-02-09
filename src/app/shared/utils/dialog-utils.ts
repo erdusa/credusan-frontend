@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { DialogConfirmComponent } from "../dialog-confirm/dialog-confirm.component";
 
 @Injectable({
@@ -9,7 +8,6 @@ import { DialogConfirmComponent } from "../dialog-confirm/dialog-confirm.compone
 export class DialogUtils {
 
     constructor(
-        private snackBar: MatSnackBar,
         private dialogo: MatDialog
     ) { }
 

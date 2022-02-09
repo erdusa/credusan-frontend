@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CaptacionExtractoVerComponent } from 'src/app/captacion-extracto/components/captacion-extracto-ver.component';
 import { Captacion } from 'src/app/captacion/models/captacion';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
@@ -19,8 +18,7 @@ export class CajasComponent implements OnInit {
 
     constructor(
         private notificacionService: NotificacionService,
-        private dialog: MatDialog,
-        private snackBar: MatSnackBar
+        private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -52,9 +50,6 @@ export class CajasComponent implements OnInit {
     private recibirNotificacionRegistroCreado() {
 
         this.notificacionService.getMensajeCambio().subscribe(data => {
-            this.snackBar.open(data, 'AVISO', {
-                duration: 2000
-            });
             this.deshabilitaBotones = true;
             this.recargaCaptacion += 1;
         });

@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, map } from 'rxjs';
 import { Asociado } from 'src/app/asociado/models/asociado';
 import { EnumTipoCaptacion } from 'src/app/shared/enums/enums-captacion';
@@ -27,7 +26,6 @@ export class CaptacionAgregarComponent implements OnInit {
         private dialogRef: MatDialogRef<CaptacionAgregarComponent>,
         private tipoCaptacionService: TipoCaptacionService,
         private captacionService: CaptacionService,
-        private snackBar: MatSnackBar,
         private notificacionService: NotificacionService,
         @Inject(MAT_DIALOG_DATA) private data: Asociado,
         private dialogUtils: DialogUtils
@@ -46,7 +44,7 @@ export class CaptacionAgregarComponent implements OnInit {
     }
 
     public guardar() {
-        if (ValidateFields.showMessageIfFieldFailed(this.snackBar,
+        if (ValidateFields.showMessageIfFieldFailed(this.notificacionService,
             [
                 [this.idTipoCaptacionSeleccionada, "tipo de captación"]
             ])) {
