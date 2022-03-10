@@ -60,19 +60,20 @@ export class AsociadoEdicionComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.beneficiarios);
     }
 
-    public agregarBeneficiario() { //falta trabajar con beneficiarios
+    public agregarBeneficiario() {
         if (this.isDatosBeneficiariosFailed()) {
             return;
         }
-        let beneficiario = new Beneficiario;
-        beneficiario.nombres = this.beneficiarioNombres;
-        beneficiario.primerApellido = this.beneficiarioPrimerApellido;
-        beneficiario.segundoApellido = this.beneficiarioSegundoApellido;
-        beneficiario.nombreCompleto = (beneficiario.nombres + " "
-            + beneficiario.primerApellido
-            + " " + ValidateFields.returnEmptyForNull(beneficiario.segundoApellido)
-        ).trim().toUpperCase();
-        beneficiario.porcentaje = this.beneficiarioPorcentaje;
+        let beneficiario = {
+            nombres: this.beneficiarioNombres,
+            primerApellido: this.beneficiarioPrimerApellido,
+            segundoApellido: this.beneficiarioSegundoApellido,
+            nombreCompleto: (this.beneficiarioNombres + " "
+                + this.beneficiarioPrimerApellido
+                + " " + ValidateFields.returnEmptyForNull(this.beneficiarioSegundoApellido)
+            ).trim().toUpperCase(),
+            porcentaje: this.beneficiarioPorcentaje
+        } as Beneficiario;
         this.beneficiarios.push(beneficiario)
         this.cargarTablaBeneficiarios()
         this.limpiarCamposBeneficiario();
@@ -111,8 +112,7 @@ export class AsociadoEdicionComponent implements OnInit {
     }
 
     public guardar() {
-        let tipoDocumento = new TipoDocumento();
-        tipoDocumento.idTipoDocumento = this.idTipoDocumentoSeleccionado;
+        let tipoDocumento = { idTipoDocumento: this.idTipoDocumentoSeleccionado } as TipoDocumento;
         this.asociado.tipoDocumento = tipoDocumento;
         this.asociado.fechaNacimiento = moment(this.fechaNacimientoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
 

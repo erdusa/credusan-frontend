@@ -2,10 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AsociadoService } from '../services/asociado.service';
 import { AsociadoComponent } from './asociado.component';
-import { Asociado } from '../models/asociado';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogUtils } from 'src/app/shared/utils/dialog-utils';
-import { MatIconModule } from '@angular/material/icon';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificacionService } from 'src/app/shared/service/notificacion.service';
 
