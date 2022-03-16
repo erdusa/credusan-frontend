@@ -5,6 +5,7 @@ import { AsociadoComponent } from './asociado/components/asociado.component';
 import { CajasComponent } from './cajas/components/cajas.component';
 import { CaptacionExtractoVerComponent } from './captacion-extracto/components/captacion-extracto-ver.component';
 import { CaptacionComponent } from './captacion/components/captacion.component';
+import { CreditosGestionarComponent } from './creditos/creditos-gestionar/creditos-gestionar.component';
 
 const routes: Routes = [
     {
@@ -15,6 +16,9 @@ const routes: Routes = [
     },
     {
         path: "captacion", component: CaptacionComponent
+    },
+    {
+        path: "creditos", component: CreditosGestionarComponent
     },
     {
         path: "cajas", component: CajasComponent

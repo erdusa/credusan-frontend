@@ -1,0 +1,61 @@
+<div>
+    <h1>Agregar Crédito</h1>
+</div>
+
+<div>
+    <mat-form-field>
+        <input type="number"
+               matInput
+               name="valor"
+               placeholder="Valor"
+               [(ngModel)]="valor"
+               max="999999999"
+               maxlength="9"
+               required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="number"
+               matInput
+               name="plazo"
+               placeholder="Plazo (en meses)"
+               [(ngModel)]="plazo"
+               max="240"
+               maxlength="3"
+               required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="number"
+               matInput
+               name="tasaInteres"
+               placeholder="Tasa de Interés"
+               [(ngModel)]="tasaInteres"
+               max="9"
+               maxlength="3"
+               required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="number"
+               matInput
+               name="tasaInteresMora"
+               placeholder="Tasa de Interés Mora"
+               [(ngModel)]="tasaInteresMora"
+               max="9"
+               maxlength="3"
+               required>
+    </mat-form-field>
+
+</div>
+
+<div class="botones_abajo">
+    <button mat-raised-button
+            color="primary"
+            class="action_button"
+            (click)="guardar()">Aceptar</button>
+    <button mat-raised-button
+            color="accent"
+            class="action_button"
+            (click)="cerrar()">Cancelar</button>
+</div>

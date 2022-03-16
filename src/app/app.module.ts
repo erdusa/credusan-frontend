@@ -19,6 +19,8 @@ import { CajasComponent } from './cajas/components/cajas.component';
 import { CaptacionExtractoVerComponent } from './captacion-extracto/components/captacion-extracto-ver.component';
 import { CaptacionExtractoAgregarComponent } from './cajas/components/captacion-extracto-agregar/captacion-extracto-agregar.component';
 import { ShowMessagesComponent } from './shared/show-messages/show-messages.component';
+import { CreditosGestionarComponent } from './creditos/creditos-gestionar/creditos-gestionar.component';
+import { CreditosAgregarComponent } from './creditos/creditos-agregar/creditos-agregar.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +35,9 @@ import { ShowMessagesComponent } from './shared/show-messages/show-messages.comp
         CajasComponent,
         CaptacionExtractoVerComponent,
         CaptacionExtractoAgregarComponent,
-        ShowMessagesComponent
+        ShowMessagesComponent,
+        CreditosGestionarComponent,
+        CreditosAgregarComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,26 @@
+<h1>Gestionar Créditos</h1>
+<app-asociado-buscar [soloAsociadosActivos]=true></app-asociado-buscar>
+
+<h2>Listado de Créditos</h2>
+<!-- <app-captacion-buscar></app-captacion-buscar> -->
+
+<div class="botones_abajo">
+
+    <button mat-raised-button
+            color="primary"
+            [disabled]="!hayAsociadoSeleccionado"
+            (click)="agregarCredito()"
+            class="action_button">
+        <mat-icon>add</mat-icon>
+        Agregar
+    </button>
+
+    <!-- <button mat-raised-button
+            color="accent"
+            [disabled]="(noPermiteSaldarCaptacion)"
+            (click)="saldarCredito()"
+            class="action_button">
+        <mat-icon>close</mat-icon>
+        Saldar
+    </button> -->
+</div>
