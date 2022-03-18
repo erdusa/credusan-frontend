@@ -29,6 +29,14 @@
             *matCellDef="let element">{{element.saldo | number}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="valorCuota">
+        <th mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header> Valor Cuota </th>
+        <td mat-cell
+            *matCellDef="let element">{{element.valorCuota | number}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="fechaProximoPago">
         <th mat-header-cell
             *matHeaderCellDef

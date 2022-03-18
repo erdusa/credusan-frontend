@@ -13,7 +13,7 @@ import { CreditosListarService } from './creditos-listar.service';
 export class CreditosListarComponent implements OnInit {
 
     dataSource: MatTableDataSource<Credito>;
-    displayedColumns: String[] = ["numero", "valor", "saldo", "fechaProximoPago", "diasMora"];
+    displayedColumns: String[] = ["numero", "valor", "saldo", "valorCuota", "fechaProximoPago", "diasMora"];
     @Input()
     idTipoEstadoCredito: number = EnumTipoEstadoCredito.VIGENTE;
     idAsociado: number;
@@ -33,7 +33,7 @@ export class CreditosListarComponent implements OnInit {
         this.notificationService.getMensajeCambio().subscribe(data => this.listarCreditos(this.idAsociado));
     }
 
-    public listarCreditos(idAsociado: number) {
+    private listarCreditos(idAsociado: number) {
 
         this.creditosListarService.listarCreditos(idAsociado, this.idTipoEstadoCredito).subscribe(data => {
             this.dataSource = new MatTableDataSource(data);
