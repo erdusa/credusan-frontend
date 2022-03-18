@@ -21,6 +21,7 @@ import { CaptacionExtractoAgregarComponent } from './cajas/components/captacion-
 import { ShowMessagesComponent } from './shared/show-messages/show-messages.component';
 import { CreditosGestionarComponent } from './creditos/creditos-gestionar/creditos-gestionar.component';
 import { CreditosAgregarComponent } from './creditos/creditos-agregar/creditos-agregar.component';
+import { CreditosListarComponent } from './creditos/creditos-listar/creditos-listar.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { CreditosAgregarComponent } from './creditos/creditos-agregar/creditos-a
         CaptacionExtractoAgregarComponent,
         ShowMessagesComponent,
         CreditosGestionarComponent,
-        CreditosAgregarComponent
+        CreditosAgregarComponent,
+        CreditosListarComponent
     ],
     imports: [
         BrowserModule,
